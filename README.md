@@ -6,7 +6,7 @@ A comprehensive guide to modern JavaScript concepts for senior engineers. This r
 
 ### Core Concepts
 - [Event Loop & Asynchronous JavaScript](docs/01-event-loop.md)
-- Closures & Scope (coming soon)
+- [Closures & Scope](docs/02-closures-scope.md)
 - `this` Binding & Prototypes (coming soon)
 - Type Coercion & Gotchas (coming soon)
 
