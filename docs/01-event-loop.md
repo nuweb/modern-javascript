@@ -52,17 +52,84 @@ function multiply(a, b) {
 }
 
 function square(n) {
-  return multiply(n, n); // multiply pushed onto stack
+  return multiply(n, n);
 }
 
 function printSquare(n) {
-  const result = square(n); // square pushed onto stack
+  const result = square(n);
   console.log(result);
 }
 
 printSquare(4);
-// Stack: printSquare → square → multiply → (returns) → square → (returns) → printSquare → (returns)
 ```
+
+#### Visual Step-by-Step Execution
+
+```
+Step 1: printSquare(4) is called
+┌─────────────────┐
+│  printSquare    │  ← pushed onto stack
+└─────────────────┘
+
+Step 2: printSquare calls square(4)
+┌─────────────────┐
+│  square         │  ← pushed onto stack
+├─────────────────┤
+│  printSquare    │
+└─────────────────┘
+
+Step 3: square calls multiply(4, 4)
+┌─────────────────┐
+│  multiply       │  ← pushed onto stack
+├─────────────────┤
+│  square         │
+├─────────────────┤
+│  printSquare    │
+└─────────────────┘
+
+Step 4: multiply returns 16
+┌─────────────────┐
+│  square         │  ← multiply popped (returned)
+├─────────────────┤
+│  printSquare    │
+└─────────────────┘
+
+Step 5: square returns 16
+┌─────────────────┐
+│  printSquare    │  ← square popped (returned)
+└─────────────────┘
+
+Step 6: printSquare logs 16 and returns
+┌─────────────────┐
+│     (empty)     │  ← printSquare popped (returned)
+└─────────────────┘
+```
+
+#### Reading the Execution Flow
+
+The execution flow can be summarized as:
+
+```
+printSquare → square → multiply → (returns) → square → (returns) → printSquare → (returns)
+     │           │          │         │           │         │            │           │
+     │           │          │         │           │         │            │           └── printSquare finishes
+     │           │          │         │           │         │            └── back in printSquare
+     │           │          │         │           │         └── square finishes
+     │           │          │         │           └── back in square (with result 16)
+     │           │          │         └── multiply finishes, returns 16
+     │           │          └── multiply starts (top of stack)
+     │           └── square starts
+     └── printSquare starts
+```
+
+#### Key Stack Concepts
+
+| Term | Meaning |
+|------|---------|
+| **Push** | Function is called → added to top of stack |
+| **Pop** | Function returns → removed from top of stack |
+| **LIFO** | Last In, First Out — most recent function finishes first |
+| **Stack Overflow** | Too many nested calls exceed stack size limit |
 
 ### Microtask vs Macrotask Queue
 
